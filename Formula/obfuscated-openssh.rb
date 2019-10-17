@@ -33,8 +33,8 @@ class ObfuscatedOpenssh < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/palxex/homebrew-obfuscated-openssh/master/patches/8.1.diff"
-    sha256 "06f93194192b553d5ba179379819e2a1e99163a7b8e4515a7b731e200fba0fd0"
+    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/8.1.diff"
+    sha256 "eb06e902b1db869d291afa551751ac1de843cb5e10829ea83dfe2f78957de37d"
   end
 
   def install
