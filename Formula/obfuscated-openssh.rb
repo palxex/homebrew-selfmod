@@ -34,7 +34,7 @@ class ObfuscatedOpenssh < Formula
 
   patch do
     url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/8.1.diff"
-    sha256 "eb06e902b1db869d291afa551751ac1de843cb5e10829ea83dfe2f78957de37d"
+    sha256 "0b4eea2a1b5416f7555850b09c47fc2a41516d3ba97f6605e198b720eced3602"
   end
 
   def install
