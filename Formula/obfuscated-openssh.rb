@@ -1,9 +1,9 @@
 class ObfuscatedOpenssh < Formula
-  desc "OpenBSD freely-licensed SSH connectivity tools"
+  desc "OpenBSD freely-licensed SSH connectivity tools with obfuscated patch"
   homepage "https://www.openssh.com/"
   url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz"
   mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz"
-  version "8.1p1"
+  version "8.1p1_2"
   sha256 "02f5dbef3835d0753556f973cd57b4c19b6b1f6cd24c03445e23ac77ca1b93ff"
 
   conflicts_with "openssh",
@@ -66,6 +66,32 @@ class ObfuscatedOpenssh < Formula
 
     buildpath.install resource("com.openssh.sshd.sb")
     (etc/"ssh").install "com.openssh.sshd.sb" => "org.openssh.sshd.sb"
+  end
+
+  plist_options :startup => true
+
+  def plist; <<~EOS
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>RunAtLoad</key>
+      <true/>
+      <key>KeepAlive</key>
+      <true/>
+      <key>Label</key>
+      <string>#{plist_name}</string>
+      <key>ProgramArguments</key>
+      <array>
+        <string>#{opt_sbin}/sshd</string>
+      </array>
+      <key>StandardOutPath</key>
+      <string>/tmp/#{plist_name}.log</string>
+      <key>StandardErrorPath</key>
+      <string>/tmp/#{plist_name}.log</string>
+    </dict>
+    </plist>
+  EOS
   end
 
   test do
