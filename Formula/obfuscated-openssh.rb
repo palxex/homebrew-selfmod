@@ -3,7 +3,7 @@ class ObfuscatedOpenssh < Formula
   homepage "https://www.openssh.com/"
   url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz"
   mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz"
-  version "8.1p1_2"
+  version "8.1p1"
   sha256 "02f5dbef3835d0753556f973cd57b4c19b6b1f6cd24c03445e23ac77ca1b93ff"
 
   conflicts_with "openssh",

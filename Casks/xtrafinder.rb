@@ -6,8 +6,6 @@ cask 'xtrafinder' do
   name 'XtraFinder'
   homepage 'https://trankynam.com/xtrafinder/'
 
-  ohai "NEED SIP TURN OFF GLOBALLY!"
-
   if MacOS.version == :catalina
     installer script: {
                         executable: 'For OS X 10.15 Catalina/Install.command',
@@ -19,7 +17,9 @@ cask 'xtrafinder' do
                       }
   elsif MacOS.version == :mojave
     # TODO
+    ohai "NEED SIP TURN OFF GLOBALLY!"
   else
+    ohai "NEED SIP TURN OFF GLOBALLY!"
     pkg 'For OS X 10.13 - 10.6/XtraFinder.pkg'
     uninstall pkgutil: 'com.trankynam.xtrafinder.*'
   end
