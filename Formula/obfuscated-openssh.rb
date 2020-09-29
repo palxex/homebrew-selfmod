@@ -15,6 +15,9 @@ class ObfuscatedOpenssh < Formula
   depends_on "pkg-config" => :build
   depends_on "ldns"
   depends_on "openssl@1.1"
+  depends_on "krb5" unless OS.mac?
+  depends_on "linux-pam" unless OS.mac?
+  depends_on "libedit" unless OS.mac?
 
   resource "com.openssh.sshd.sb" do
     url "https://opensource.apple.com/source/OpenSSH/OpenSSH-209.50.1/com.openssh.sshd.sb"
