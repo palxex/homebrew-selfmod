@@ -3,7 +3,7 @@ class ObfuscatedOpenssh < Formula
   homepage "https://www.openssh.com/"
   url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.3p1.tar.gz"
   mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.3p1.tar.gz"
-  version "8.3p1"
+  version "8.3p1_1"
   sha256 "f2befbe0472fe7eb75d23340eb17531cb6b3aac24075e2066b41f814e12387b2"
 
   conflicts_with "openssh",
@@ -60,7 +60,6 @@ class ObfuscatedOpenssh < Formula
       --with-ldns
       --with-libedit
       --with-kerberos5
-      --with-pam
       --with-ssl-dir=#{Formula["openssl@1.1"].opt_prefix}
       --with-security-key-builtin
     ]
