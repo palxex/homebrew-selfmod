@@ -1,16 +1,23 @@
 class ObfuscatedOpenssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools with obfuscated patch"
   homepage "https://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.3p1.tar.gz"
-  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.3p1.tar.gz"
-  version "8.3p1_1"
-  sha256 "f2befbe0472fe7eb75d23340eb17531cb6b3aac24075e2066b41f814e12387b2"
+  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.4p1.tar.gz"
+  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.4p1.tar.gz"
+  version "8.4p1"
+  sha256 "5a01d22e407eb1c05ba8a8f7c654d388a13e9f226e4ed33bd38748dafa1d2b24"
+  license "SSH-OpenSSH"
+  revision 1
+
+  livecheck do
+    url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/"
+    regex(/href=.*?openssh[._-]v?(\d+(?:\.\d+)+(?:p\d+)?)\.t/i)
+  end
 
   conflicts_with "openssh",
     :because => "both install ssh scp sshd etc"
 
   # Please don't resubmit the keychain patch option. It will never be accepted.
-  # https://github.com/Homebrew/homebrew-dupes/pull/482#issuecomment-118994372
+  # https://archive.is/hSB6d#10%25
 
   depends_on "pkg-config" => :build
   depends_on "ldns"
@@ -43,8 +50,8 @@ class ObfuscatedOpenssh < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/8.3.diff"
-    sha256 "58196218ccc5ddae53e646bf0160f2d300913c9184adc19324e3575f87ac12a3"
+    url "https://raw.githubusercontent.com/palxex/obfuscated-openssh-patches/master/portable/8.4.diff"
+    sha256 "f98a6738465e365649e62435f00a0520fa3e28db3a788326a609740bd75c84d2"
   end
 
   def install
@@ -110,13 +117,9 @@ class ObfuscatedOpenssh < Formula
   test do
     assert_match "OpenSSH_", shell_output("#{bin}/ssh -V 2>&1")
 
-    begin
-      pid = fork { exec sbin/"sshd", "-D", "-p", "8022" }
-      sleep 2
-      assert_match "sshd", shell_output("lsof -i :8022")
-    ensure
-      Process.kill(9, pid)
-      Process.wait(pid)
-    end
+    port = free_port
+    fork { exec sbin/"sshd", "-D", "-p", port.to_s }
+    sleep 2
+    assert_match "sshd", shell_output("lsof -i :#{port}")
   end
 end
