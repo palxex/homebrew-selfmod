@@ -1,12 +1,12 @@
 class ObfuscatedOpenssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools with obfuscated patch"
   homepage "https://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.4p1.tar.gz"
-  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.4p1.tar.gz"
-  version "8.4p1"
-  sha256 "5a01d22e407eb1c05ba8a8f7c654d388a13e9f226e4ed33bd38748dafa1d2b24"
+  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.5p1.tar.gz"
+  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.5p1.tar.gz"
+  version "8.5p1"
+  sha256 "f52f3f41d429aa9918e38cf200af225ccdd8e66f052da572870c89737646ec25"
   license "SSH-OpenSSH"
-  revision 1
+
 
   livecheck do
     url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/"
@@ -50,8 +50,8 @@ class ObfuscatedOpenssh < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/palxex/obfuscated-openssh-patches/master/portable/8.4.diff"
-    sha256 "f98a6738465e365649e62435f00a0520fa3e28db3a788326a609740bd75c84d2"
+    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/8.5.diff"
+    sha256 "eef6253ee0bed9fe083005b3012190f5736fa257e2e19537ddb1627b2109bb28"
   end
 
   def install
@@ -115,6 +115,12 @@ class ObfuscatedOpenssh < Formula
   end
 
   test do
+    if ENV["HOMEBREW_GITHUB_ACTIONS"]
+      # Fixes "Starting sshd: Privilege separation user sshd does not exist FAILED" in docker
+      system "groupadd", "-g", "133", "sshd"
+      system "useradd", "-u", "133", "-g", "133", "-c", "sshd", "-d", "/", "sshd"
+    end
+
     assert_match "OpenSSH_", shell_output("#{bin}/ssh -V 2>&1")
 
     port = free_port
