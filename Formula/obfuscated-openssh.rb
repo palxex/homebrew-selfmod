@@ -1,10 +1,10 @@
 class ObfuscatedOpenssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools with obfuscated patch"
   homepage "https://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.8p1.tar.gz"
-  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.8p1.tar.gz"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.0p1.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.0p1.tar.gz"
   version "8.8p1"
-  sha256 "4590890ea9bb9ace4f71ae331785a3a5823232435161960ed5fc86588f331fe9"
+  sha256 "03974302161e9ecce32153cfa10012f1e65c8f3750f573a73ab1befd5972a28a"
   license "SSH-OpenSSH"
 
   conflicts_with "openssh",
@@ -46,8 +46,8 @@ class ObfuscatedOpenssh < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/8.8.diff"
-    sha256 "e997cddf992bb95b2202c14b91daa2ee4e0df96882bc683a3ebb918c2eb70e50"
+    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/9.0.diff"
+    sha256 "519642bba7ea7f433ef4207739a6c3e88ab5b368f0d6b317e22d97fbdf81772c"
   end
 
   def install
@@ -70,6 +70,7 @@ class ObfuscatedOpenssh < Formula
       --with-security-key-builtin
     ]
 
+    args << "--with-pam"
     args << "--with-privsep-path=#{var}/lib/sshd" if OS.linux?
 
     system "./configure", *args
