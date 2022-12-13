@@ -1,10 +1,10 @@
 class ObfuscatedOpenssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools with obfuscated patch"
   homepage "https://www.openssh.com/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.0p1.tar.gz"
-  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.0p1.tar.gz"
-  version "8.8p1"
-  sha256 "03974302161e9ecce32153cfa10012f1e65c8f3750f573a73ab1befd5972a28a"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.1p1.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.1p1.tar.gz"
+  version "9.1p1"
+  sha256 "19f85009c7e3e23787f0236fbb1578392ab4d4bf9f8ec5fe6bc1cd7e8bfdd288"
   license "SSH-OpenSSH"
 
   conflicts_with "openssh",
@@ -46,8 +46,8 @@ class ObfuscatedOpenssh < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/9.0.diff"
-    sha256 "519642bba7ea7f433ef4207739a6c3e88ab5b368f0d6b317e22d97fbdf81772c"
+    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/9.1.diff"
+    sha256 "8b3cd6abc54a8a8d9fc85549c31dbab352399d7c0ad681e2f21ffee698bead02"
   end
 
   def install
