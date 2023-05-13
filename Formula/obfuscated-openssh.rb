@@ -15,7 +15,7 @@ class ObfuscatedOpenssh < Formula
 
   depends_on "pkg-config" => :build
   depends_on "ldns"
-  depends_on "libfido2"
+  #depends_on "libfido2"
   depends_on "openssl@1.1"
 
   uses_from_macos "lsof" => :test
@@ -67,8 +67,9 @@ class ObfuscatedOpenssh < Formula
       --with-kerberos5
       --with-pam
       --with-ssl-dir=#{Formula["openssl@1.1"].opt_prefix}
-      --with-security-key-builtin
     ]
+    #--with-security-key-builtin removed due to libfido2 dependency
+
 
     args << "--with-pam"
     args << "--with-privsep-path=#{var}/lib/sshd" if OS.linux?
