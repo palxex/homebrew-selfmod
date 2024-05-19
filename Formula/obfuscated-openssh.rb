@@ -1,10 +1,10 @@
 class ObfuscatedOpenssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools with obfuscated patch"
   homepage "https://www.openssh.com/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.1p1.tar.gz"
-  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.1p1.tar.gz"
-  version "9.1p1"
-  sha256 "19f85009c7e3e23787f0236fbb1578392ab4d4bf9f8ec5fe6bc1cd7e8bfdd288"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.6p1.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.6p1.tar.gz"
+  version "9.6p1"
+  sha256 "910211c07255a8c5ad654391b40ee59800710dd8119dd5362de09385aa7a777c"
   license "SSH-OpenSSH"
 
   conflicts_with "openssh",
@@ -41,13 +41,13 @@ class ObfuscatedOpenssh < Formula
   end
 
   resource "com.openssh.sshd.sb" do
-    url "https://opensource.apple.com/source/OpenSSH/OpenSSH-240.40.1/com.openssh.sshd.sb"
-    sha256 "a273f86360ea5da3910cfa4c118be931d10904267605cdd4b2055ced3a829774"
+    url "https://raw.githubusercontent.com/apple-oss-distributions/OpenSSH/rel/OpenSSH-282/com.openssh.sshd.sb"
+    sha256 "f2c3c296b9e4ac11d555879cbe73c59e08e51139372c920bf55ab5cee628ecb3"
   end
 
   patch do
-    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/9.1.diff"
-    sha256 "8b3cd6abc54a8a8d9fc85549c31dbab352399d7c0ad681e2f21ffee698bead02"
+    url "https://raw.githubusercontent.com/zinglau/obfuscated-openssh-patches/master/portable/9.6.diff"
+    sha256 "34421f051118e83c899e736ebe58a4a348338e72f741a92afd58fc28cb53ce4d"
   end
 
   def install
@@ -97,7 +97,7 @@ class ObfuscatedOpenssh < Formula
     assert_match "sshd", shell_output("lsof -i :#{port}")
   end
 
-  plist_options :startup => true
+  #plist_options :startup => true
 
   def plist; <<~EOS
     <?xml version="1.0" encoding="UTF-8"?>
